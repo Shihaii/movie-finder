@@ -33,3 +33,8 @@ export interface Rating {
   source: string;
   value: string;
 }
+
+export interface NavigationLink{
+  name: string;
+  url: string;
+}

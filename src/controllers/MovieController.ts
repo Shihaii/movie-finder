@@ -1,27 +1,30 @@
 import type { Movie, MovieDetailed, Rating } from "@/types";
 import axios from "axios";
 
-export const getMovieByName = async (title: string): Promise<Movie[]> => {
+export const getMovieByName = async (title: string | string[]): Promise<Movie[]> => {
   let movies: Movie[] = [];
   await axios
     .get(`http://www.omdbapi.com/?apikey=b4e91b14&s=${title}`)
     .then((response: { data: any }) => {
-      for (let i = 0; i < response.data.Search.length; i++) {
-        let movie: Movie = {
-          poster: response.data.Search[i].Poster,
-          title: response.data.Search[i].Title,
-          type: response.data.Search[i].Type,
-          year: response.data.Search[i].Year,
-          imdbID: response.data.Search[i].imdbID,
-        };
-        movies.push(movie);
+      if(response.data.Search){
+        for (let i = 0; i < response.data.Search.length; i++) {
+          let movie: Movie = {
+            poster: response.data.Search[i].Poster,
+            title: response.data.Search[i].Title,
+            type: response.data.Search[i].Type,
+            year: response.data.Search[i].Year,
+            imdbID: response.data.Search[i].imdbID,
+          };
+          movies.push(movie);
+        }
       }
+      
     });
 
   return movies;
 };
 
-export const getMovieById = async (id: string): Promise<MovieDetailed> => {
+export const getMovieById = async (id: string | string[]): Promise<MovieDetailed> => {
   let response = await axios.get(
     `http://www.omdbapi.com/?apikey=b4e91b14&i=${id}`
   );
