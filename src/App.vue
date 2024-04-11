@@ -5,7 +5,6 @@ import type { NavigationLink } from './types';
 import Navigation from './components/Navigation.vue';
 const links : NavigationLink[] = [
 {name: "Home", url: "/"},
-{name: "About", url: "/about"},
 {name: "Add Movie", url: "/addmovie"}
 ];
 

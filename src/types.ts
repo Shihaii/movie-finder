@@ -1,3 +1,5 @@
+import type { UploadFile } from "element-plus";
+
 export interface Movie {
   imdbID: string;
   poster: string;
@@ -29,12 +31,19 @@ export interface MovieDetailed extends Movie {
   imdbVotes: number;
 }
 
+export interface MovieForm {
+  poster: UploadFile | string;
+  title: string;
+  director: string;
+  year: number;
+}
+
 export interface Rating {
   source: string;
   value: string;
 }
 
-export interface NavigationLink{
+export interface NavigationLink {
   name: string;
   url: string;
 }

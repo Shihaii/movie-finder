@@ -1,34 +1,12 @@
 <script setup lang="ts">
 import type { Movie, MovieDetailed } from "@/types";
-import { getMovieById, getMovieByName } from "@/controllers/MovieController";
-import { useRoute } from "vue-router";
-import { type Ref, ref, watch } from "vue";
 import router from "@/router";
 import { useCurrentMovieStore } from "@/stores/currentMovie";
 
-const route = useRoute();
-
-let movies: Ref<Movie[]> = ref([]);
-let detailedMovies: Ref<MovieDetailed[]> = ref([]);
-movies.value = await getMovieByName(route.params.title).then();
-for (let i = 0; i < movies.value.length; i++) {
-  let detailedMovie: MovieDetailed = await getMovieById(movies.value[i].imdbID);
-  detailedMovies.value.push(detailedMovie);
-}
-
-watch(
-  () => route.params.title,
-  async (title) => {
-    movies.value = await getMovieByName(route.params.title);
-    detailedMovies.value = [];
-    for (let i = 0; i < movies.value.length; i++) {
-      let detailedMovie: MovieDetailed = await getMovieById(
-        movies.value[i].imdbID
-      );
-      detailedMovies.value.push(detailedMovie);
-    }
-  }
-);
+defineProps<{
+  movies: MovieDetailed[];
+  header?: string;
+}>();
 
 const movieDetails = (movie: Movie) => {
   const store = useCurrentMovieStore();
@@ -38,15 +16,12 @@ const movieDetails = (movie: Movie) => {
 </script>
 
 <template>
-  <el-carousel
-    :interval="4000"
-    type="card"
-    height="70vh"
-    :autoplay="false"
-    v-if="detailedMovies.length > 0"
-  >
+  <div class="header-container">
+    <h1>{{ header }}</h1>
+  </div>
+  <el-carousel :interval="4000" type="card" height="40vh" :autoplay="false">
     <el-carousel-item
-      v-for="movie in detailedMovies"
+      v-for="movie in movies"
       :key="movie.imdbID"
       @click="movieDetails(movie)"
     >
@@ -68,11 +43,6 @@ const movieDetails = (movie: Movie) => {
       </div>
     </el-carousel-item>
   </el-carousel>
-  <div v-else>
-    <div class="header-container">
-      <h1>Not found</h1>
-    </div>
-  </div>
 </template>
 
 <style scoped>
@@ -97,16 +67,12 @@ const movieDetails = (movie: Movie) => {
   width: 100%;
   flex-direction: column;
 }
-.header-container h1 {
-  justify-self: center;
-  align-self: center;
-}
 .header-container {
   display: flex;
   text-align: center;
   width: 100%;
-  height: 20%;
-  justify-content: center;
+  padding-left: 4vw;
+  /* justify-content: center; */
 }
 .item-container {
   display: flex;

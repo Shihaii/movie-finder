@@ -2,10 +2,13 @@
 import type { MovieDetailed } from "@/types";
 import { getMovieById } from "@/controllers/MovieController";
 import { useRoute } from "vue-router";
+import { useCurrentMovieStore } from "@/stores/currentMovie";
 
 const route = useRoute();
 
-let movie: MovieDetailed = await getMovieById(route.params.id);
+const store = useCurrentMovieStore();
+let movie: MovieDetailed = await store.getMovieDetailed();
+console.log("years after publication : ", store.yearsAfterPublication);
 </script>
 
 <template>
