@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script async setup lang="ts">
 import type { Movie, MovieDetailed } from "@/types";
 import { getMovieById, getMovieByName } from "@/controllers/MovieController";
 import { useRoute } from "vue-router";
@@ -7,10 +7,10 @@ import router from "@/router";
 import { useCurrentMovieStore } from "@/stores/currentMovie";
 
 const route = useRoute();
-
-let movies: Ref<Movie[]> = ref([]);
-let detailedMovies: Ref<MovieDetailed[]> = ref([]);
-movies.value = await getMovieByName(route.params.title).then();
+let s = await getMovieByName(route.params.title);
+const movies: Ref<Movie[]> = ref([]);
+const detailedMovies: Ref<MovieDetailed[]> = ref([]);
+movies.value = await getMovieByName(route.params.title);
 for (let i = 0; i < movies.value.length; i++) {
   let detailedMovie: MovieDetailed = await getMovieById(movies.value[i].imdbID);
   detailedMovies.value.push(detailedMovie);
@@ -70,24 +70,20 @@ const movieDetails = (movie: Movie) => {
   </el-carousel>
   <div v-else>
     <div class="header-container">
-      <h1>Not found</h1>
+      <h1>Not found movies with this name</h1>
     </div>
   </div>
 </template>
 
 <style scoped>
-.el-carousel__item:nth-child(2n) {
-  background-color: #202020;
+.el-carousel__item {
+  background-color: var(--color-background-mute);
 }
-
-.el-carousel__item:nth-child(2n + 1) {
-  background-color: #202020;
-}
-
 .el-carousel__item img {
   height: 100%;
 }
 .container {
+  padding: 2vh;
   display: flex;
   flex-direction: row;
   height: 100%;

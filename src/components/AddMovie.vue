@@ -14,39 +14,12 @@ import {
 import { type UploadInstance } from "element-plus/es/components/upload/index.mjs";
 
 const ratings: Rating[] = [];
-// const movie : MovieDetailed = reactive({
-//     poster: '',
-//     title: '',
-//     type: '',
-//     year: 0,
-//     imdbID: '',
-//     actors: '',
-//     awards: '',
-//     boxOffice: '',
-//     country: '',
-//     dvd: '',
-//     director: '',
-//     genre: '',
-//     language: '',
-//     metascore: 0,
-//     plot: '',
-//     production: '',
-//     rated: '',
-//     ratings: ratings,
-//     released: '',
-//     response: '',
-//     runtime: '',
-//     website: '',
-//     writer: '',
-//     imdbRating: 0,
-//     imdbVotes: 0,
-// });
 
 const movie: MovieForm = reactive({
   poster: "",
   title: "",
   director: "",
-  year: 0,
+  year: new Date().getFullYear(),
 });
 
 const dialogImageUrl = ref("");
@@ -63,29 +36,21 @@ const handlePictureCardPreview = (file: UploadFile) => {
   dialogVisible.value = true;
 };
 
-const handleDownload = (file: UploadFile) => {
-  console.log(file);
-};
 const handleExceed: UploadProps["onExceed"] = (files) => {
-  console.log(`exceed`);
   upload.value!.clearFiles();
   const file = files[0] as UploadRawFile;
   file.uid = genFileId();
   upload.value!.handleStart(file);
-  console.log(`file : ${file.name}`);
 };
 const handleImageUpload: UploadProps["onChange"] = (file) => {
-  //const file = files[0] as UploadRawFile
-  console.log(`upload`, file.name);
   movie.poster = file;
-  console.log(`movie.poster`, movie.poster);
 };
 
 const onSubmit = async (formEl: FormInstance | undefined) => {
   if (!formEl) return;
   await formEl.validate((valid, fields) => {
     if (valid) {
-      console.log("submit!");
+      console.log("submit!", movie);
     } else {
       console.log("error submit!", fields);
     }
@@ -131,7 +96,7 @@ const rules = reactive<FormRules<MovieDetailed>>({
       :rules="rules"
       label-width="auto"
       label-position="top"
-      style="max-width: 600px; width: 50vw"
+      style="max-width: 600px; width: 50vw; min-width: 350px"
     >
       <h1>Add Movie</h1>
       <el-form-item label="Movie title" prop="title">
@@ -149,12 +114,13 @@ const rules = reactive<FormRules<MovieDetailed>>({
           :limit="1"
           :on-exceed="handleExceed"
         >
-          <el-icon><Plus /></el-icon>
+          <el-icon v-if="!movie.poster"><Plus /></el-icon>
+          <p v-else>Change</p>
 
           <template #file="{ file }">
             <div>
               <img
-                class="el-upload-list__item-thumbnail"
+                style="width: 100%; object-fit: cover"
                 :src="file.url"
                 alt=""
               />
@@ -191,7 +157,11 @@ const rules = reactive<FormRules<MovieDetailed>>({
     </el-form>
   </div>
 </template>
-
+<style>
+.el-upload--picture-card {
+  background-color: var(--vt-c-black-mute);
+}
+</style>
 <style scoped>
 .form-container {
   display: flex;
@@ -208,9 +178,5 @@ const rules = reactive<FormRules<MovieDetailed>>({
 .el-input {
   --el-input-bg-color: var(--vt-c-black-mute);
   height: 6vh;
-  /* font-size: 1rem; */
-}
-.el-upload {
-  --el-upload-bg-color: var(--vt-c-black-mute);
 }
 </style>

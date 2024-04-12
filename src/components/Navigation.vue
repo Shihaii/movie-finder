@@ -37,22 +37,18 @@ const search = () => {
 
 <style scoped>
 .container {
-  /* padding-top: 2vh; */
   display: flex;
-  /* border-bottom: 1px dotted  whitesmoke; */
   margin-bottom: 5vh;
 }
 ul {
   list-style-type: none;
   display: flex;
   flex-grow: 1;
-  /* gap: 1vw; */
+  justify-content: start;
   background-color: rgba(240, 248, 255, 0.059);
-  /* border-radius: 20px; */
   gap: 1vw;
 }
 li {
-  /* border-radius: 12%; */
   display: flex;
 }
 li a {
@@ -64,12 +60,9 @@ li a {
   font-weight: 650;
   text-decoration: none;
   border-radius: 4px;
-  /* flex-grow: 1; */
 }
 li a:hover {
   background-color: rgba(240, 248, 255, 0.115);
-  /* border: 1px solid whitesmoke; */
-  /* cursor: pointer; */
 }
 .search {
   --el-input-bg-color: var(--vt-c-black-mute);

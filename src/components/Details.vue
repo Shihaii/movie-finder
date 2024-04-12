@@ -18,7 +18,9 @@ console.log("years after publication : ", store.yearsAfterPublication);
     </div>
     <div class="container">
       <div class="vertical-container">
-        <img :src="movie.poster" />
+        <div class="poster">
+          <img :src="movie.poster" />
+        </div>
         <div class="tags-container">
           <div class="tag">{{ movie.year }}</div>
           <div>|</div>
@@ -92,5 +94,18 @@ console.log("years after publication : ", store.yearsAfterPublication);
 }
 .item-text {
   font-size: 1.1rem;
+}
+.poster {
+  display: flex;
+  justify-content: center;
+}
+@media (max-width: 750px) {
+  .container {
+    flex-direction: column;
+  }
+  .main-content {
+    margin-left: 2vw;
+    margin-right: 2vw;
+  }
 }
 </style>

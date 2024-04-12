@@ -5,6 +5,11 @@ import { ref, type Ref } from "vue";
 import router from "@/router";
 import SmallSlider from "../components/SmallSlider.vue";
 
+{
+  {
+    console.log("defaulrt home");
+  }
+}
 const getMovies = async (title: string) => {
   let movies: Movie[] = [];
   movies = await getMovieByName(title).then();
@@ -29,11 +34,8 @@ avengersMovies.value = await getMovies("Avengers");
 <template>
   <div class="slider-container">
     <SmallSlider header="Scooby-Doo" :movies="scoobyMovies"></SmallSlider>
-    <SmallSlider
-      header="Sherlock Holmes"
-      :movies="sherlockMovies"
-    ></SmallSlider>
-    <SmallSlider header="Avengers" :movies="avengersMovies"></SmallSlider>
+    <SmallSlider header="Detectives" :movies="sherlockMovies"></SmallSlider>
+    <SmallSlider header="Superhero" :movies="avengersMovies"></SmallSlider>
   </div>
 </template>
 
@@ -42,6 +44,5 @@ avengersMovies.value = await getMovies("Avengers");
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
-  gap: 10vh;
 }
 </style>

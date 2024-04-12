@@ -19,14 +19,19 @@ const movieDetails = (movie: Movie) => {
   <div class="header-container">
     <h1>{{ header }}</h1>
   </div>
-  <el-carousel :interval="4000" type="card" height="40vh" :autoplay="false">
+  <el-carousel
+    indicator-position="outside"
+    type="card"
+    height="60vh"
+    :autoplay="false"
+  >
     <el-carousel-item
       v-for="movie in movies"
       :key="movie.imdbID"
       @click="movieDetails(movie)"
     >
       <div class="container">
-        <img :src="movie.poster" alt="" />
+        <img class="poster" :src="movie.poster" alt="" />
         <div class="text-container">
           <div class="header-container">
             <h1>{{ movie.title }}</h1>
@@ -45,19 +50,17 @@ const movieDetails = (movie: Movie) => {
   </el-carousel>
 </template>
 
-<style scoped>
-.el-carousel__item:nth-child(2n) {
-  background-color: #202020;
+<style>
+.el-carousel__item {
+  background-color: var(--color-background-mute);
 }
-
-.el-carousel__item:nth-child(2n + 1) {
-  background-color: #202020;
-}
-
 .el-carousel__item img {
   height: 100%;
 }
+</style>
+<style scoped>
 .container {
+  padding: 2vh;
   display: flex;
   flex-direction: row;
   height: 100%;
@@ -72,7 +75,7 @@ const movieDetails = (movie: Movie) => {
   text-align: center;
   width: 100%;
   padding-left: 4vw;
-  /* justify-content: center; */
+  margin-bottom: 5vh;
 }
 .item-container {
   display: flex;
