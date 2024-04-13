@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from "vue-router";
-import HomeView from "../views/HomeView.vue";
 import Details from "@/components/Details.vue";
 import AddMovie from "@/components/AddMovie.vue";
 import Results from "@/components/Results.vue";

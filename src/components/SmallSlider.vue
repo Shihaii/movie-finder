@@ -5,7 +5,7 @@ import { useCurrentMovieStore } from "@/stores/currentMovie";
 
 defineProps<{
   movies: MovieDetailed[];
-  header?: string;
+  header?: string | string[];
 }>();
 
 const movieDetails = (movie: Movie) => {
@@ -16,38 +16,42 @@ const movieDetails = (movie: Movie) => {
 </script>
 
 <template>
-  <div class="header-container">
-    <h1>{{ header }}</h1>
-  </div>
-  <el-carousel
-    indicator-position="outside"
-    type="card"
-    height="60vh"
-    :autoplay="false"
-  >
-    <el-carousel-item
-      v-for="movie in movies"
-      :key="movie.imdbID"
-      @click="movieDetails(movie)"
+  <el-container class="carousel-header-container">
+    <el-text class="carousel-header">{{ header }}</el-text>
+  </el-container>
+  <el-container direction="vertical" class="carousel-container">
+    <el-carousel
+      indicator-position="outside"
+      type="card"
+      height="60vh"
+      :autoplay="false"
     >
-      <div class="container">
-        <img class="poster" :src="movie.poster" alt="" />
-        <div class="text-container">
-          <div class="header-container">
-            <h1>{{ movie.title }}</h1>
-          </div>
-          <div class="item-container">
-            <label class="label">Year</label>
-            <p class="item-text">{{ movie.year }}</p>
-          </div>
-          <div class="item-container">
-            <label class="label">Director</label>
-            <p class="item-text">{{ movie.director }}</p>
-          </div>
-        </div>
-      </div>
-    </el-carousel-item>
-  </el-carousel>
+      <el-carousel-item
+        v-for="movie in movies"
+        :key="movie.imdbID"
+        @click="movieDetails(movie)"
+      >
+        <el-container class="container">
+          <el-container class="poster">
+            <img :src="movie.poster" alt="" />
+          </el-container>
+          <el-container class="text-container">
+            <el-container class="header-container">
+              <el-text class="header">{{ movie.title }}</el-text>
+            </el-container>
+            <el-container class="item-container">
+              <el-text class="label">Year</el-text>
+              <el-text class="item-text">{{ movie.year }}</el-text>
+            </el-container>
+            <el-container class="item-container">
+              <el-text class="label">Director</el-text>
+              <el-text class="item-text">{{ movie.director }}</el-text>
+            </el-container>
+          </el-container>
+        </el-container>
+      </el-carousel-item>
+    </el-carousel>
+  </el-container>
 </template>
 
 <style>
@@ -59,34 +63,65 @@ const movieDetails = (movie: Movie) => {
 }
 </style>
 <style scoped>
+.carousel-container {
+  margin-bottom: 10vh;
+}
 .container {
   padding: 2vh;
-  display: flex;
-  flex-direction: row;
   height: 100%;
 }
+.poster {
+  flex-shrink: 0;
+  flex-grow: 0;
+}
 .text-container {
-  display: flex;
-  width: 100%;
   flex-direction: column;
 }
 .header-container {
-  display: flex;
   text-align: center;
   width: 100%;
-  padding-left: 4vw;
-  margin-bottom: 5vh;
+  height: 20%;
+  justify-content: center;
+  flex-grow: 0;
 }
 .item-container {
-  display: flex;
   padding: 2vh;
   gap: 1vw;
+  flex-grow: 0;
 }
 .label {
   font-size: 1.1rem;
+  color: var(--color-text);
   font-weight: bold;
 }
 .item-text {
   font-size: 1.1rem;
+}
+.header {
+  font-size: 1.6rem;
+  color: var(--color-text);
+}
+.carousel-header-container {
+  width: 100%;
+  height: 20%;
+  flex-grow: 0;
+  padding-left: 2vw;
+}
+.carousel-header {
+  font-size: 2.2rem;
+  color: var(--color-text);
+}
+@media (max-width: 990px) {
+  .container {
+    flex-direction: column;
+  }
+  .poster {
+    height: 60%;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .text-container {
+    flex-grow: 1;
+  }
 }
 </style>

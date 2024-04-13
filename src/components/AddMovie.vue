@@ -89,7 +89,7 @@ const rules = reactive<FormRules<MovieDetailed>>({
 </script>
 
 <template>
-  <div class="form-container">
+  <el-container class="form-container">
     <el-form
       ref="ruleFormRef"
       :model="movie"
@@ -115,7 +115,7 @@ const rules = reactive<FormRules<MovieDetailed>>({
           :on-exceed="handleExceed"
         >
           <el-icon v-if="!movie.poster"><Plus /></el-icon>
-          <p v-else>Change</p>
+          <el-text style="color: var(--color-text)" v-else>Change</el-text>
 
           <template #file="{ file }">
             <div>
@@ -155,16 +155,15 @@ const rules = reactive<FormRules<MovieDetailed>>({
         >
       </el-form-item>
     </el-form>
-  </div>
+  </el-container>
 </template>
 <style>
 .el-upload--picture-card {
-  background-color: var(--vt-c-black-mute);
+  --el-fill-color-lighter: var(--vt-c-black-mute);
 }
 </style>
 <style scoped>
 .form-container {
-  display: flex;
   justify-content: center;
 }
 .el-form {

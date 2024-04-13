@@ -32,17 +32,9 @@ avengersMovies.value = await getMovies("Avengers");
 </script>
 
 <template>
-  <div class="slider-container">
+  <el-container direction="vertical">
     <SmallSlider header="Scooby-Doo" :movies="scoobyMovies"></SmallSlider>
     <SmallSlider header="Detectives" :movies="sherlockMovies"></SmallSlider>
     <SmallSlider header="Superhero" :movies="avengersMovies"></SmallSlider>
-  </div>
+  </el-container>
 </template>
-
-<style scoped>
-.slider-container {
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-}
-</style>

@@ -4,10 +4,13 @@ import { RouterLink } from "vue-router";
 import router from "@/router";
 import { type Ref, ref } from "vue";
 import { Search } from "@element-plus/icons-vue";
+
 defineProps<{
   links?: NavigationLink[];
 }>();
+
 const input: Ref<string> = ref("");
+
 const search = () => {
   router.push(`/results/${input.value}`);
 };
@@ -15,8 +18,8 @@ const search = () => {
 
 <template>
   <header>
-    <div class="container">
-      <ul class="">
+    <el-container class="container">
+      <ul>
         <li v-for="link in links">
           <RouterLink :to="link.url" class="">{{ link.name }}</RouterLink>
         </li>
@@ -31,13 +34,12 @@ const search = () => {
           <el-button :icon="Search" style="height: 100%" @click="search()" />
         </li>
       </ul>
-    </div>
+    </el-container>
   </header>
 </template>
 
 <style scoped>
 .container {
-  display: flex;
   margin-bottom: 5vh;
 }
 ul {
@@ -66,6 +68,7 @@ li a:hover {
 }
 .search {
   --el-input-bg-color: var(--vt-c-black-mute);
-  --el-button-bg-color: ;
+  --el-button-bg-color: var(--vt-c-black-mute);
+  --el-input-text-color: var(--color-text);
 }
 </style>

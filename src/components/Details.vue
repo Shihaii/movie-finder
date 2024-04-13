@@ -12,58 +12,57 @@ console.log("years after publication : ", store.yearsAfterPublication);
 </script>
 
 <template>
-  <div class="main-content">
-    <div class="header-container">
-      <h1>{{ movie.title }}</h1>
-    </div>
-    <div class="container">
-      <div class="vertical-container">
-        <div class="poster">
+  <el-container class="main-content">
+    <el-container class="header-container">
+      <el-text class="header">{{ movie.title }}</el-text>
+    </el-container>
+    <el-container class="container">
+      <el-container direction="vertical" style="flex-shrink: 0">
+        <el-container class="poster">
           <img :src="movie.poster" />
-        </div>
-        <div class="tags-container">
-          <div class="tag">{{ movie.year }}</div>
-          <div>|</div>
-          <div class="tag">{{ movie.runtime }}</div>
-        </div>
-      </div>
-      <div class="vertical-container">
-        <div class="item-container">
-          <label class="label" for="">Director: </label>
-          <p class="item-text">{{ movie.director }}</p>
-        </div>
-        <div class="item-container">
-          <label class="label" for="">Writers: </label>
-          <p class="item-text">{{ movie.writer }}</p>
-        </div>
-        <div class="item-container">
-          <label class="label" for="">Actors: </label>
-          <p class="item-text">{{ movie.actors }}</p>
-        </div>
-        <div class="item-container">
-          <label class="label" for="">Genre: </label>
-          <p class="item-text">{{ movie.genre }}</p>
-        </div>
-        <div class="item-container">
-          <label class="label" for="">Plot: </label>
-          <p class="item-text">{{ movie.plot }}</p>
-        </div>
-      </div>
-    </div>
-  </div>
+        </el-container>
+        <el-container class="tags-container">
+          <el-text class="item-text"
+            >{{ movie.year }} | {{ movie.runtime }}</el-text
+          >
+        </el-container>
+      </el-container>
+      <el-container direction="vertical">
+        <el-container class="item-container">
+          <el-text class="label" for="">Director: </el-text>
+          <el-text class="item-text">{{ movie.director }}</el-text>
+        </el-container>
+        <el-container class="item-container">
+          <el-text class="label" for="">Writers: </el-text>
+          <el-text class="item-text">{{ movie.writer }}</el-text>
+        </el-container>
+        <el-container class="item-container">
+          <el-text class="label" for="">Actors: </el-text>
+          <el-text class="item-text">{{ movie.actors }}</el-text>
+        </el-container>
+        <el-container class="item-container">
+          <el-text class="label" for="">Genre: </el-text>
+          <el-text class="item-text">{{ movie.genre }}</el-text>
+        </el-container>
+        <el-container class="item-container">
+          <el-text class="label" for="">Plot: </el-text>
+          <el-text class="item-text">{{ movie.plot }}</el-text>
+        </el-container>
+      </el-container>
+    </el-container>
+  </el-container>
 </template>
 
 <style scoped>
 .main-content {
   margin-left: 10vw;
   margin-right: 10vw;
+  flex-direction: column;
 }
 .container {
-  display: flex;
   gap: 2vw;
 }
 .header-container {
-  display: flex;
   text-align: center;
   justify-content: center;
   margin-bottom: 5vh;
@@ -72,32 +71,35 @@ console.log("years after publication : ", store.yearsAfterPublication);
   font-size: 2.4rem;
 }
 .tags-container {
-  display: flex;
   text-align: center;
   justify-content: center;
   gap: 1vw;
   font-size: 1.1rem;
 }
-.text-container {
-  display: flex;
-  flex-direction: column;
-}
 .item-container {
-  display: flex;
   border-bottom: 1px solid white;
   padding: 2vh;
   gap: 1vw;
+  flex-grow: 0;
 }
 .label {
   font-size: 1.1rem;
   font-weight: bold;
+  color: var(--color-text);
 }
 .item-text {
   font-size: 1.1rem;
+  color: var(--color-text);
 }
 .poster {
-  display: flex;
   justify-content: center;
+}
+.poster img {
+  width: 100%;
+}
+.header {
+  font-size: 1.6rem;
+  color: var(--color-text);
 }
 @media (max-width: 750px) {
   .container {
