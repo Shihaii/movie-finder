@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { MovieDetailed } from "@/types";
-import { useRoute } from "vue-router";
 import { useCurrentMovieStore } from "@/stores/currentMovie";
 
 const store = useCurrentMovieStore();
