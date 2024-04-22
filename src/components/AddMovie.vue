@@ -1,7 +1,5 @@
 <script setup lang="ts">
 import type { MovieDetailed, MovieForm, Rating } from "@/types";
-import { getMovieById } from "@/controllers/MovieController";
-import { useRoute } from "vue-router";
 import { reactive, ref } from "vue";
 import {
   genFileId,
@@ -13,8 +11,6 @@ import {
 } from "element-plus";
 import { type UploadInstance } from "element-plus/es/components/upload/index.mjs";
 
-const ratings: Rating[] = [];
-
 const movie: MovieForm = reactive({
   poster: "",
   title: "",
@@ -24,12 +20,7 @@ const movie: MovieForm = reactive({
 
 const dialogImageUrl = ref("");
 const dialogVisible = ref(false);
-const disabled = ref(false);
 const upload = ref<UploadInstance>();
-
-const handleRemove = (file: UploadFile) => {
-  console.log(file);
-};
 
 const handlePictureCardPreview = (file: UploadFile) => {
   dialogImageUrl.value = file.url!;

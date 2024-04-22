@@ -6,7 +6,6 @@ import { type Ref, ref, watch } from "vue";
 import SmallSlider from "../components/SmallSlider.vue";
 
 const route = useRoute();
-let s = await getMovieByName(route.params.title);
 const movies: Ref<Movie[]> = ref([]);
 const detailedMovies: Ref<MovieDetailed[]> = ref([]);
 movies.value = await getMovieByName(route.params.title);

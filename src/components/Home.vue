@@ -2,14 +2,8 @@
 import type { Movie, MovieDetailed } from "@/types";
 import { getMovieById, getMovieByName } from "../controllers/MovieController";
 import { ref, type Ref } from "vue";
-import router from "@/router";
 import SmallSlider from "../components/SmallSlider.vue";
 
-{
-  {
-    console.log("defaulrt home");
-  }
-}
 const getMovies = async (title: string) => {
   let movies: Movie[] = [];
   movies = await getMovieByName(title).then();
