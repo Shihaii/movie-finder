@@ -1,12 +1,18 @@
 import type { Movie, MovieDetailed, Rating } from "@/types";
 import axios from "axios";
 
-export const getMovieByName = async (title: string | string[]): Promise<Movie[]> => {
+export const getMovieByName = async (
+  title: string | string[]
+): Promise<Movie[]> => {
   let movies: Movie[] = [];
   await axios
-    .get(`http://www.omdbapi.com/?apikey=b4e91b14&s=${title}`)
+    .get(
+      `${import.meta.env.VITE_BASE_URL}?apikey=${
+        import.meta.env.VITE_API_KEY
+      }=${title}`
+    )
     .then((response: { data: any }) => {
-      if(response.data.Search){
+      if (response.data.Search) {
         for (let i = 0; i < response.data.Search.length; i++) {
           let movie: Movie = {
             poster: response.data.Search[i].Poster,
@@ -18,15 +24,18 @@ export const getMovieByName = async (title: string | string[]): Promise<Movie[]>
           movies.push(movie);
         }
       }
-      
     });
 
   return movies;
 };
 
-export const getMovieById = async (id: string | string[]): Promise<MovieDetailed> => {
+export const getMovieById = async (
+  id: string | string[]
+): Promise<MovieDetailed> => {
   let response = await axios.get(
-    `http://www.omdbapi.com/?apikey=b4e91b14&i=${id}`
+    `${import.meta.env.VITE_BASE_URL}?apikey=${
+      import.meta.env.VITE_API_KEY
+    }&i=${id}`
   );
 
   let ratings: Rating[] = [];
